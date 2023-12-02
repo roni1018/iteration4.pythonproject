@@ -1,0 +1,60 @@
+# Password strength program
+
+print("Welcome user,")
+print(
+    "This program will take the given password and through different 'if' statments, it will tell you if the password is strong or weak.")
+
+import re
+
+
+def is_password_strong(password):
+    if len(password) < 10:
+        # Checks the length of the password
+        return False
+    if not re.search(r'[a-z]', password):
+        # Checks if the password contains at least on lower case letter
+        return False
+    if not re.search(r'[A-Z]', password):
+        # Checks if password contains at least one upper case letter
+        return False
+    if not re.search(r'[!@#$%^&*()_+{}\\[\]/:;<>,.?~]', password):
+        # Checks if the password contains a character that is not a number or a letter
+        return False
+    return True
+
+
+password = input("Enter a password: ")
+# Gets the password to evaluate
+
+if is_password_strong(password):
+    print("Strong Password")
+else:
+    print("Weak password.")
+    print("Since the password you have entered is weak, here is a randomized password that can be stronger.")
+
+    #random password generator
+    import random
+    passlen = int(input("Enter the length of needed password: "))
+    s="abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()?"
+    p= "".join(random.sample(s,passlen ))
+    print(p)
+
+    print("If you would like another password but less random, here is another one.")
+    import random
+    import string
+
+    adjectives = ['lazy', 'blue', 'boring', 'short', 'mini', 'fancy', 'wonderful', 'scary', 'angry']
+    nouns = ['dog', 'book', 'stove', 'train', 'pizza', 'student', 'bird', 'duck', 'llama', 'mirror']
+while True:
+    adjective = random.choice(adjectives)
+    noun = random.choice(nouns)
+
+    number = random.randrange(0, 100)
+    special_char = random.choice(string.punctuation)
+
+    password = adjective + noun + str(number) + special_char
+    print("Your password is: %s" % password)
+
+    response = input("Would you like another password? Yes or No?")
+    if response == 'No':
+        break
